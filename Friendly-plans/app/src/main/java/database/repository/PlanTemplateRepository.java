@@ -99,6 +99,19 @@ public class PlanTemplateRepository {
                 .list();
     }
 
+    public void setAllInactive (){
+        List<PlanTemplate> plans = daoSession.getPlanTemplateDao().loadAll();
+        for (PlanTemplate plan : plans){
+            plan.setIsActive(false);
+        }
+        daoSession.getPlanTemplateDao().updateInTx(plans);
+    }
+
+    public void setIsActive(PlanTemplate plan, boolean isActive) {
+        plan.setIsActive(isActive);
+        daoSession.getPlanTemplateDao().update(plan);
+    }
+
     public void delete(Long id) {
         daoSession.getPlanTemplateDao().deleteByKey(id);
     }

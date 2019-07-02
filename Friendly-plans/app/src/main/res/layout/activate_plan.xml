@@ -25,12 +25,13 @@
         </LinearLayout>
 
         <android.support.v7.widget.RecyclerView
-          android:id="@+id/rv_activate_plan_plan_list"
-          android:layout_width="match_parent"
-          android:layout_height="0px"
-          android:layout_weight="1"
-          android:scrollbars="vertical"
-          tools:listitem="@layout/item_plan"></android.support.v7.widget.RecyclerView>
+            android:id="@+id/rv_activate_plan_plan_list"
+            android:layout_width="match_parent"
+            android:layout_height="0px"
+            android:layout_marginTop="7px"
+            android:layout_weight="1"
+            android:scrollbars="vertical"
+            tools:listitem="@layout/item_plan"></android.support.v7.widget.RecyclerView>
 
         <LinearLayout
           android:id="@+id/activate_plan_menu"

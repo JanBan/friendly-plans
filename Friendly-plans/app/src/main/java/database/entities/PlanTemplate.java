@@ -17,6 +17,8 @@ public class PlanTemplate {
 
     private String name;
 
+    private boolean isActive;
+
     @ToMany(referencedJoinProperty = "childId")
     private List<ChildPlan> childPlans;
 
@@ -43,10 +45,11 @@ public class PlanTemplate {
     @Generated(hash = 667849288)
     private transient PlanTemplateDao myDao;
 
-    @Generated(hash = 643907227)
-    public PlanTemplate(Long id, String name) {
+    @Generated(hash = 297559248)
+    public PlanTemplate(Long id, String name, boolean isActive) {
         this.id = id;
         this.name = name;
+        this.isActive = isActive;
     }
 
     @Generated(hash = 623023216)
@@ -58,17 +61,21 @@ public class PlanTemplate {
         return this.id;
     }
 
-    public void setId(Long id) {
-        this.id = id;
-    }
-
     public String getName() {
         return this.name;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public boolean getIsActive() { return this.isActive; }
+
+
+    public void setId(Long id) {
+        this.id = id;
     }
+
+    public void setName(String name) { this.name = name; }
+
+    public void setIsActive(boolean isActive) { this.isActive = isActive; }
+
 
     /**
      * To-many relationship, resolved on first access (and after reset). Changes to to-many

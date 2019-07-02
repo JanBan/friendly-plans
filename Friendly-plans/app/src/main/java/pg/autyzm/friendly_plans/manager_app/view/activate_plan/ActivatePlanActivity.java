@@ -9,14 +9,27 @@ import android.widget.Button;
 
 import javax.inject.Inject;
 
+import database.entities.PlanTemplate;
 import database.repository.PlanTemplateRepository;
 import pg.autyzm.friendly_plans.App;
 import pg.autyzm.friendly_plans.R;
+import pg.autyzm.friendly_plans.view.child_settings.ActivePlanRecyclerViewAdapter;
 
 public class ActivatePlanActivity extends AppCompatActivity {
 
     @Inject
     PlanTemplateRepository planTemplateRepository;
+
+    ActivatePlanRecyclerViewAdapter planListAdapter;
+
+    ActivatePlanRecyclerViewAdapter.PlanItemClickListener  planItemClickListener =
+            new ActivatePlanRecyclerViewAdapter.PlanItemClickListener(){
+
+                @Override
+                public void onPlanItemClick(int position) {
+                    planListAdapter.setSelectedPlanPosition(position);
+                }
+            };
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,7 +43,7 @@ public class ActivatePlanActivity extends AppCompatActivity {
         RecyclerView recyclerView = (RecyclerView) findViewById(R.id.rv_activate_plan_plan_list);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        ActivatePlanRecyclerViewAdapter planListAdapter = new ActivatePlanRecyclerViewAdapter();
+        planListAdapter = new ActivatePlanRecyclerViewAdapter(planItemClickListener);
         recyclerView.setAdapter(planListAdapter);
         planListAdapter.setPlanItems(planTemplateRepository.getAll());
 
@@ -43,6 +56,11 @@ public class ActivatePlanActivity extends AppCompatActivity {
     }
 
     private void activatePlan(){
-        //TODO
+        PlanTemplate selectedPlan = planListAdapter.getSelectedPlan();
+
+        if (selectedPlan != null) {
+            planTemplateRepository.setAllInactive();
+            planTemplateRepository.setIsActive(selectedPlan, true);
+        }
     }
 }
